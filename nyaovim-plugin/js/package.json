@@ -6,8 +6,9 @@
   "main": "index.js",
   "scripts": {
     "build": "browserify src/main.jsx -o index.js -d -t babelify",
-    "watch": "chokidar 'src/**/*.(jsx|js)' -c 'npm run build && echo ok'",
+    "watch": "chokidar 'src/**/*.(jsx|js)' -c 'LANG=C date && npm run build && echo ok'",
     "serve": "cd \"$(npm prefix)/../..\" && python -m SimpleHTTPServer 1234",
+    "uglify": "uglifyjs index.js -o index.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "",
@@ -22,7 +23,8 @@
     "babel-preset-react": "^6.5.0",
     "babelify": "^7.2.0",
     "browserify": "^13.0.0",
-    "chokidar-cli": "^1.2.0"
+    "chokidar-cli": "^1.2.0",
+    "uglifyjs": "^2.4.10"
   },
   "babel": {
     "presets": [

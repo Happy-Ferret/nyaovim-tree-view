@@ -6,7 +6,7 @@
   "main": "index.js",
   "scripts": {
     "build": "browserify src/main.jsx -o index.js -d -t babelify",
-    "watch": "chokidar 'src/**/*.(jsx|js)' -c 'npm run build'",
+    "watch": "chokidar 'src/**/*.(jsx|js)' -c 'npm run build && echo ok'",
     "serve": "cd \"$(npm prefix)/../..\" && python -m SimpleHTTPServer 1234",
     "test": "echo \"Error: no test specified\" && exit 1"
   },

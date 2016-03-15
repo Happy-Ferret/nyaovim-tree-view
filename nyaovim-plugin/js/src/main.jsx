@@ -1,54 +1,76 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import TreeView from 'react-treeview';
+import path from 'path';
+const fs = global.require('fs');
 
-const dataSource = [
-  ['Apple', 'Orange'],
-  ['Facebook', 'Google'],
-  ['Celery', 'Cheeseburger'],
-];
-
-class Tree extends React.Component {
+class File extends React.Component {
     constructor(props) {
         super(props);
+    }
+
+    onClick() {
+        // TODO
+    }
+
+    render() {
+        return <span onClick={this.onClick.bind(this)}>
+            {this.props.name}
+        </span>;
+    }
+}
+
+class Directory extends React.Component {
+    constructor(props) {
+        super(props);
+        fs.readdir(path.join(props.parent, props.name), (err, entries) => {
+            if (err) {
+                console.error(err);
+                return;
+            }
+            this.setState({
+                collapsed: this.state.collapsed,
+                entries
+            });
+        });
         this.state = {
-            collapsedBookkeeping: dataSource.map(() => false),
+            collapsed: true,
+            entries: []
         };
     }
 
-    handleClick(i) {
-        let [...collapsedBookkeeping] = this.state.collapsedBookkeeping;
-        collapsedBookkeeping[i] = !collapsedBookkeeping[i];
-        this.setState({collapsedBookkeeping: collapsedBookkeeping});
+    onTreeClick() {
+        this.setState({
+            collapsed: !this.state.collapsed,
+            entries: this.state.entries
+        });
     }
 
-    collapseAll() {
-        this.setState({
-            collapsedBookkeeping: this.state.collapsedBookkeeping.map(() => true),
+    renderChildren() {
+        if (this.state.collapsed) {
+            return [];
+        }
+        const parent = path.join(this.props.parent, this.props.name);
+        return this.state.entries.map((e, i) => {
+            const stats = fs.lstatSync(path.join(parent, e));
+            if (stats && stats.isDirectory()) {
+                return <Directory key={i} parent={parent} name={e}/>
+            } else {
+                return <File key={i} parent={parent} name={e}/>;
+            }
         });
     }
 
     render() {
-        return <div>
-            <button onClick={this.collapseAll.bind(this)}>Collapse all</button>
-            {dataSource.map((node, i) => {
-                // Let's make it so that the tree also toggles when we click the
-                // label. Controlled components make this effortless.
-                const label =
-                    <span className="node" onClick={this.handleClick.bind(this, i)}>
-                        Type {i}
-                    </span>;
-                return (
-                    <TreeView
-                        key={i}
-                        nodeLabel={label}
-                        collapsed={this.state.collapsedBookkeeping[i]}
-                        onClick={this.handleClick.bind(this, i)}>
-                        {node.map(entry => <div className="info" key={entry}>{entry}</div>)}
-                    </TreeView>
-                );
-            })}
-        </div>;
+        return (
+            <TreeView
+                nodeLabel={this.props.name}
+                collapsed={this.state.collapsed}
+                onClick={this.onTreeClick.bind(this)}
+            >
+            {this.renderChildren()}
+            </TreeView>
+        );
     }
 }
 
@@ -60,9 +82,9 @@ Polymer({
     attached: function() {
         // TODO: pass editor instance to component
         ReactDOM.render(
-            <Tree/>,
+            <Directory parent="/Users" name="rhayasd"/>,
             document.getElementById('nyaovim-treeview-root')
         );
-    },
-})
+    }
+});
 

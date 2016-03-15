@@ -1,0 +1,16 @@
+{
+  "name": "nyaovim-tree-view-test",
+  "productName": "NyaoVimTreeViewTest",
+  "version": "0.0.0",
+  "description": "",
+  "main": "main.js",
+  "scripts": {
+    "start": "electron $(npm prefix)",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "MIT",
+  "devDependencies": {
+    "electron-prebuilt": "^0.37.2"
+  }
+}

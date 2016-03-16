@@ -11,9 +11,9 @@ This is a UI plugin for [NyaoVim](https://github.com/rhysd/NyaoVim).  You can pu
 
 Please use your favorite plugin manager to install this repository.
 
-### 2. Write `<tree-view>` element to your `~/.config/nyaovim/nyaovimrc.html`
+### 2. Write `<tree-view>` element to your `nyaovimrc.html`
 
-Below is an example:
+Below is an example of `~/.config/nyaovim/nyaovimrc.html`:
 
 ```html
 <dom-module id="nyaovim-app">
@@ -28,7 +28,7 @@ Below is an example:
       width: 100%;
       height: 100%;
     }
-    #left-tree-view {
+    #side-bar {
       width: 200px;
       flex: auto;
     }
@@ -41,7 +41,7 @@ Below is an example:
     }
   </style>
   <div class="horizontal">
-    <tree-view id="left-tree-view" editor="[[editor]]"></tree-view>
+    <tree-view id="side-bar" editor="[[editor]]"></tree-view>
     <neovim-editor id="nyaovim-editor" argv$="[[argv]]"></neovim-editor>
   </div>
 </template>

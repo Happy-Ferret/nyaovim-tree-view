@@ -12,7 +12,7 @@ app.on('ready', () => {
         height: 600,
         titleBarStyle: 'hidden-inset'
     });
-    const html = 'file://' + path.join(__dirname, 'index.html');
+    const html = 'file://' + path.join(__dirname, 'example.html');
     win.loadURL(html);
     win.on('closed', () => { win = null; });
 });

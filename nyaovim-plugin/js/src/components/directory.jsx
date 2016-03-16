@@ -2,6 +2,7 @@ import React from 'react';
 import path from 'path';
 import TreeView from 'react-treeview';
 import File from './file.jsx';
+import Proxy from '../state-proxy';
 const fs = global.require('fs'); // Note: Avoid browserify shim
 
 export default class Directory extends React.Component {
@@ -19,8 +20,7 @@ export default class Directory extends React.Component {
     }
 
     onNameClick() {
-        // TODO:
-        console.log('TODO: Recreate entire menu tree using this directory as root');
+        Proxy.setRootPath(path.join(this.props.parent, this.props.name));
     }
 
     renderChildren() {

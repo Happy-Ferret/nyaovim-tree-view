@@ -2,30 +2,34 @@ import {dirname, basename} from 'path';
 import React from 'react';
 import IconButton from './icon-button.jsx';
 import Directory from './directory.jsx';
+import Proxy from '../state-proxy';
 
 const fs = global.require('fs');
 
 export default class TreeViewRoot extends React.Component {
     constructor(props) {
         super(props);
-        this.state = {
-            showHiddenFile: this.props.showHiddenFile,
-            rootPath: global.process.cwd() || '/'
-        };
+        this.state = Proxy.getAll();
+        const on_change = this.onChange.bind(this);
+        this.root_path_listener = Proxy.on('root-path', on_change);
+        this.hidden_file_listener = Proxy.on('hidden-file', on_change);
+    }
+
+    onChange() {
+        this.setState(Proxy.getAll());
+    }
+
+    componentWillUnmount() {
+        Proxy.removeListener(this.root_path_listener);
+        Proxy.removeListener(this.hidden_file_listener);
     }
 
     onParentDir() {
-        this.setState({
-            showHiddenFile: this.state.showHiddenFile,
-            rootPath: dirname(this.state.rootPath)
-        });
+        Proxy.setRootPath(dirname(this.state.rootPath))
     }
 
     onHiddenFile() {
-        this.setState({
-            showHiddenFile: !this.state.showHiddenFile,
-            rootPath: this.state.rootPath
-        });
+        Proxy.toggleHiddenFile();
     }
 
     renderFileTree() {

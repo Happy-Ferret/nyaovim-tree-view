@@ -10,8 +10,8 @@ const IconButton = props => {
         margin: '0 auto',
         cursor: 'pointer'
     };
-    return <span style={wrapper_style}>
-        <i className={"fa fa-" + props.name} onClick={props.onClick} style={icon_style}></i>
+    return <span style={wrapper_style} onClick={props.onClick}>
+        <i className={"fa fa-" + props.name} style={icon_style}></i>
     </span>;
 };
 export default IconButton;

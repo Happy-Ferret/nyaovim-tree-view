@@ -13,6 +13,19 @@ export default class TreeViewRoot extends React.Component {
         const on_change = this.onChange.bind(this);
         this.root_path_listener = Proxy.on('root-path', on_change);
         this.hidden_file_listener = Proxy.on('hidden-file', on_change);
+        this.open_dir_listener = props.rpc.on('open-dir', this.tryOpeningDir.bind(this));
+        this.file_edit_listener = props.rpc.on('edit', file => this.tryOpeningDir(dirname(file)));
+    }
+
+    tryOpeningDir(dir) {
+        try {
+            const stats = fs.lstatSync(dir);
+            if (stats && stats.isDirectory()) {
+                Proxy.setRootPath(dir);
+            }
+        } catch(e) {
+            // Do nothing
+        }
     }
 
     onChange() {
@@ -22,10 +35,12 @@ export default class TreeViewRoot extends React.Component {
     componentWillUnmount() {
         Proxy.removeListener(this.root_path_listener);
         Proxy.removeListener(this.hidden_file_listener);
+        this.props.removeListener(this.open_dir_listener);
+        this.props.removeListener(this.file_edit_listener);
     }
 
     onParentDir() {
-        Proxy.setRootPath(dirname(this.state.rootPath))
+        Proxy.setRootPath(dirname(this.state.rootPath));
     }
 
     onHiddenFile() {

@@ -45,6 +45,7 @@ export default class TreeViewRoot extends React.Component {
                 showHiddenFile={showHiddenFile}
                 collapsed={false}
                 entries={entries}
+                editor={this.props.editor}
             />;
         } catch(e) {
             console.error(e);

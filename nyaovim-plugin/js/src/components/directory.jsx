@@ -27,13 +27,14 @@ export default class Directory extends React.Component {
         if (this.state.collapsed) {
             return [];
         }
-        const {parent, name, showHiddenFile, entries} = this.props;
+        const {parent, name, showHiddenFile, entries, editor} = this.props;
         const sub_parent = path.join(parent, name);
         return entries.map((e, i) => {
             const props = {
                 key: i,
                 parent: sub_parent,
                 name: e,
+                editor,
                 showHiddenFile
             };
             try {
@@ -52,6 +53,7 @@ export default class Directory extends React.Component {
         const label =
         <span
             onClick={this.onNameClick.bind(this)}
+            style={{cursor: 'pointer'}}
             className="nyaovim-treeview-directory"
         >
             {this.props.name}

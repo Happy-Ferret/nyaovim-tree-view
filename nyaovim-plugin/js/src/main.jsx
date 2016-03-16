@@ -13,7 +13,8 @@ Polymer({
         insetTitleBar: {
             type: Boolean,
             value: false
-        }
+        },
+        editor: Object
     },
 
     attached: function() {
@@ -22,6 +23,7 @@ Polymer({
             <TreeViewRoot
                 showHiddenFile={this.showHiddenFile}
                 insetTitleBar={this.insetTitleBar}
+                editor={this.editor}
             />,
             document.getElementById('nyaovim-treeview-entry')
         );

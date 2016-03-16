@@ -15,10 +15,16 @@ export default class TreeViewRoot extends React.Component {
     }
 
     onParentDir() {
-        const new_root = dirname(this.state.rootPath);
         this.setState({
             showHiddenFile: this.state.showHiddenFile,
-            rootPath: new_root
+            rootPath: dirname(this.state.rootPath)
+        });
+    }
+
+    onHiddenFile() {
+        this.setState({
+            showHiddenFile: !this.state.showHiddenFile,
+            rootPath: this.state.rootPath
         });
     }
 
@@ -71,7 +77,7 @@ export default class TreeViewRoot extends React.Component {
             <div style={style}>
                 <div style={menu_style}>
                     <IconButton name="arrow-circle-up" onClick={this.onParentDir.bind(this)}/>
-                    <IconButton name={eye_icon}/>
+                    <IconButton name={eye_icon} onClick={this.onHiddenFile.bind(this)}/>
                     <IconButton name="expand"/>
                     <IconButton name="compress"/>
                 </div>

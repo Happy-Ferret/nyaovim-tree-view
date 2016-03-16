@@ -27,7 +27,6 @@ export default class Directory extends React.Component {
         if (this.state.collapsed) {
             return [];
         }
-        console.log('render subtree!: ', this.state);
         const {parent, name, showHiddenFile, entries} = this.props;
         const sub_parent = path.join(parent, name);
         return entries.map((e, i) => {

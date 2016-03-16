@@ -82,7 +82,7 @@ Polymer({
     attached: function() {
         // TODO: pass editor instance to component
         ReactDOM.render(
-            <Directory parent="/Users" name="rhayasd"/>,
+            <Directory parent="/Users" name="npsdev5"/>,
             document.getElementById('nyaovim-treeview-root')
         );
     }

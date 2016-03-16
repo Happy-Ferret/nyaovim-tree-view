@@ -1,7 +1,13 @@
 <dom-module id="tree-view">
   <template>
     <link rel="stylesheet" href="./js/node_modules/react-treeview/react-treeview.css" />
-    <div id="nyaovim-treeview-root">
+    <style>
+      #nyaovim-treeview-root {
+        height: 100%;
+        overflow: auto;
+      }
+    </style>
+    <div id="nyaovim-treeview-root" class="nyaovim-treeview">
     </div>
   </template>
 </dom-module>

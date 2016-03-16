@@ -7,8 +7,65 @@
     <script src="./bower_components/webcomponentsjs/webcomponents-lite.min.js"></script>
     <link rel="import" href="./bower_components/polymer/polymer.html" />
     <link rel="import" href="../nyaovim-plugin/tree-view.html" />
+    <style>
+      html, body {
+        margin: 0px;
+        width: 100%;
+        height: 100%;
+      }
+      .wrapper {
+        display: flex;
+        flex-direction: row;
+        width: 100%;
+        height: 100%;
+      }
+      #target {
+        width: 200px;
+        flex: none;
+        height: 100%;
+        overflow: hidden;
+      }
+      #screen {
+        flex: auto;
+        color: #333333;
+        background-color: white;
+        width: auto;
+        height: 100%;
+        padding: 8px;
+      }
+      pre code {
+        font-family: Mocha, Meiryo, monospace;
+      }
+      .nyaovim-treeview {
+        color: #f0f0f0;
+        background-color: #333333;
+        font-family: Mocha, Meiryo, monospace;
+      }
+    </style>
   </head>
   <body>
-    <tree-view></tree-view>
+    <div class="wrapper">
+      <tree-view id="target"></tree-view>
+      <div id="screen">
+        <pre><code>'use strict';
+
+const electron = require('electron');
+const app = electron.app;
+const BrowserWindow = electron.BrowserWindow;
+const path = require('path');
+
+app.on('window-all-closed', () => app.quit());
+app.on('ready', () => {
+    var win = new BrowserWindow({
+        width: 800,
+        height: 600
+    });
+    const html = 'file://' + path.join(__dirname, 'index.html');
+    win.loadURL(html);
+    win.on('closed', () => { win = null; });
+});
+          </code></pre>
+      </div>
+    </div>
   </body>
 </html>

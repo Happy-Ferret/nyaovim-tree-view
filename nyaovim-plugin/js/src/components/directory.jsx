@@ -52,7 +52,6 @@ export default class Directory extends React.Component {
         const label =
         <span
             onClick={this.onNameClick.bind(this)}
-            style={{cursor: 'pointer'}}
             className="nyaovim-treeview-directory"
         >
             {this.props.name}
@@ -64,7 +63,7 @@ export default class Directory extends React.Component {
                 collapsed={this.state.collapsed}
                 onClick={this.onTreeClick.bind(this)}
             >
-            {this.renderChildren()}
+                {this.renderChildren()}
             </TreeView>
         );
     }

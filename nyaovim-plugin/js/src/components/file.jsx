@@ -1,18 +1,7 @@
 import React from 'react';
 
-export default class File extends React.Component {
-    constructor(props) {
-        super(props);
-    }
-
-    onClick() {
-        // TODO
-    }
-
-    render() {
-        return <span onClick={this.onClick.bind(this)}>
-            {this.props.name}
-        </span>;
-    }
-}
-
+const File =
+    props => <div onClick={() => console.log('TODO')}>
+        {props.name}
+    </div>;
+export default File;

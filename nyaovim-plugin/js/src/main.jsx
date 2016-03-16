@@ -8,7 +8,7 @@ Polymer({
     properties: {
         showHiddenFile: {
             type: Boolean,
-            value: true
+            value: false
         },
         insetTitleBar: {
             type: Boolean,

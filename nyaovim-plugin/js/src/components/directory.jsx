@@ -2,7 +2,7 @@ import React from 'react';
 import path from 'path';
 import TreeView from 'react-treeview';
 import File from './file.jsx';
-const fs = global.require('fs'); // Note: Avoid babel shim
+const fs = global.require('fs'); // Note: Avoid browserify shim
 
 export default class Directory extends React.Component {
     constructor(props) {
@@ -11,6 +11,9 @@ export default class Directory extends React.Component {
             if (err) {
                 console.error(err);
                 return;
+            }
+            if (!props.showHiddenFile) {
+                entries = entries.filter(e => !e.startsWith('.'));
             }
             this.setState({
                 collapsed: this.state.collapsed,
@@ -63,7 +66,12 @@ export default class Directory extends React.Component {
     }
 
     render() {
-        const label = <span onClick={this.onNameClick.bind(this)} style={{cursor: 'pointer'}}>
+        const label =
+        <span
+            onClick={this.onNameClick.bind(this)}
+            style={{cursor: 'pointer'}}
+            className="nyaovim-treeview-directory"
+        >
             {this.props.name}
         </span>;
 

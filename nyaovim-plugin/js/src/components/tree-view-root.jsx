@@ -32,7 +32,7 @@ export default class TreeViewRoot extends React.Component {
             height: 'calc(100% - 30px)',
             overflow: 'auto'
         };
-        const eye_icon = this.state.showHiddenFile ? 'eye-slash' : 'eye';
+        const eye_icon = this.state.showHiddenFile ? 'eye' : 'eye-slash';
         return (
             <div style={style}>
                 <div style={menu_style}>

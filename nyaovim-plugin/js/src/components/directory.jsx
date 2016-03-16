@@ -7,29 +7,14 @@ const fs = global.require('fs'); // Note: Avoid browserify shim
 export default class Directory extends React.Component {
     constructor(props) {
         super(props);
-        fs.readdir(path.join(props.parent, props.name), (err, entries) => {
-            if (err) {
-                console.error(err);
-                return;
-            }
-            if (!props.showHiddenFile) {
-                entries = entries.filter(e => !e.startsWith('.'));
-            }
-            this.setState({
-                collapsed: this.state.collapsed,
-                entries
-            });
-        });
         this.state = {
-            collapsed: true,
-            entries: []
+            collapsed: this.props.collapsed === undefined ? true : this.props.collapsed
         };
     }
 
     onTreeClick() {
         this.setState({
-            collapsed: !this.state.collapsed,
-            entries: this.state.entries
+            collapsed: !this.state.collapsed
         });
     }
 
@@ -42,25 +27,24 @@ export default class Directory extends React.Component {
         if (this.state.collapsed) {
             return [];
         }
-        const {parent, name, showHiddenFile} = this.props;
-        const new_parent = path.join(parent, name);
-        return this.state.entries.map((e, i) => {
+        console.log('render subtree!: ', this.state);
+        const {parent, name, showHiddenFile, entries} = this.props;
+        const sub_parent = path.join(parent, name);
+        return entries.map((e, i) => {
             const props = {
                 key: i,
-                parent: new_parent,
+                parent: sub_parent,
                 name: e,
                 showHiddenFile
             };
             try {
-                const stats = fs.lstatSync(path.join(new_parent, e));
-                if (stats && stats.isDirectory()) {
-                    return <Directory {...props}/>;
-                } else {
-                    return <File {...props}/>;
+                let es = fs.readdirSync(path.join(sub_parent, e));
+                if (!showHiddenFile) {
+                    es = es.filter(e => !e.startsWith('.'));
                 }
+                return <Directory entries={es} {...props}/>;
             } catch(e) {
-                // Ignore
-                return undefined;
+                return <File {...props}/>;
             }
         });
     }

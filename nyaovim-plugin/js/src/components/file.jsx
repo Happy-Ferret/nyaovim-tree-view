@@ -2,6 +2,9 @@ import React from 'react';
 import path from 'path';
 
 function openInNeovim(props) {
+    if (!props.editor) {
+        return;
+    }
     const client = props.editor.getClient();
     const file = path.join(props.parent, props.name);
     client.command('edit! ' + file);

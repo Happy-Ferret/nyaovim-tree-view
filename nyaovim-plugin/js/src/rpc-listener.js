@@ -3,6 +3,10 @@ import {EventEmitter} from 'events';
 export default class RpcListener extends EventEmitter {
     constructor(editor) {
         super();
+        if (!editor) {
+            console.error("'editor' instance was not found.");
+            return;
+        }
         this.client = editor.getClient();
         this.client.subscribe('nyaovim-tree-view:open-dir');
         this.client.subscribe('nyaovim:edit-start');

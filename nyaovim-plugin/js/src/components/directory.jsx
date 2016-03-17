@@ -51,13 +51,16 @@ export default class Directory extends React.Component {
 
     render() {
         const label =
-        <div
+        <span
             onClick={this.onNameClick.bind(this)}
-            style={{cursor: 'pointer'}}
+            style={{
+                cursor: 'pointer',
+                color: this.props.color
+            }}
             className="nyaovim-treeview-directory"
         >
-            <span style={{color: this.props.color}}>{this.props.name}</span>
-        </div>;
+            {this.props.name}
+        </span>;
 
         return (
             <TreeView

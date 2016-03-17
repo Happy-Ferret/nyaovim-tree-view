@@ -5,6 +5,7 @@ function openInNeovim(props) {
     const client = props.editor.getClient();
     const file = path.join(props.parent, props.name);
     client.command('edit! ' + file);
+    props.editor.focus();
 }
 
 const File =

@@ -30,11 +30,11 @@ Below is an example of `~/.config/nyaovim/nyaovimrc.html`:
     }
     #side-bar {
       width: 200px;
-      flex: auto;
+      flex: none;
     }
     tree-view {
       font-size: 14px;
-      font-family: Ricty, Monaco, Meiryo, monospace;
+      font-family: Monaco, Meiryo, monospace;
       color: #f0f0f0;
       background-color: #333333;
       border-right: solid 2px #666666;

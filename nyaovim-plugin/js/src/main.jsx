@@ -15,7 +15,11 @@ Polymer({
             type: Boolean,
             value: false
         },
-        editor: Object
+        editor: Object,
+        directoryColor: {
+            type: String,
+            value: ''
+        }
     },
 
     attached: function() {
@@ -25,6 +29,7 @@ Polymer({
                 showHiddenFile={this.showHiddenFile}
                 insetTitleBar={this.insetTitleBar}
                 editor={this.editor}
+                directoryColor={this.directoryColor}
                 rpc={rpc}
             />,
             document.getElementById('nyaovim-treeview-entry')

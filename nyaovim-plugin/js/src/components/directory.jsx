@@ -27,7 +27,7 @@ export default class Directory extends React.Component {
         if (this.state.collapsed) {
             return [];
         }
-        const {parent, name, showHiddenFile, entries, editor} = this.props;
+        const {parent, name, showHiddenFile, entries, editor, color} = this.props;
         const sub_parent = path.join(parent, name);
         return entries.map((e, i) => {
             const props = {
@@ -42,7 +42,7 @@ export default class Directory extends React.Component {
                 if (!showHiddenFile) {
                     es = es.filter(e => !e.startsWith('.'));
                 }
-                return <Directory entries={es} {...props}/>;
+                return <Directory entries={es} color={color} {...props}/>;
             } catch(e) {
                 return <File {...props}/>;
             }
@@ -51,13 +51,13 @@ export default class Directory extends React.Component {
 
     render() {
         const label =
-        <span
+        <div
             onClick={this.onNameClick.bind(this)}
             style={{cursor: 'pointer'}}
             className="nyaovim-treeview-directory"
         >
-            {this.props.name}
-        </span>;
+            <span style={{color: this.props.color}}>{this.props.name}</span>
+        </div>;
 
         return (
             <TreeView

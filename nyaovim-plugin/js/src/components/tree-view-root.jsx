@@ -61,6 +61,7 @@ export default class TreeViewRoot extends React.Component {
                 collapsed={false}
                 entries={entries}
                 editor={this.props.editor}
+                color={this.props.directoryColor}
             />;
         } catch(e) {
             console.error(e);

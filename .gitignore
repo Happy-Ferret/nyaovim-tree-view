@@ -1,4 +1,5 @@
 /nyaovim-plugin/js/node_modules
+!/nyaovim-plugin/js/node_modules/react-treeview/react-treeview.css
 /test/bower_components
 /test/node_modules
 npm-debug.log

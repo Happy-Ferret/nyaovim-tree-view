@@ -32,7 +32,7 @@ Polymer({
                 directoryColor={this.directoryColor}
                 rpc={rpc}
             />,
-            document.getElementById('nyaovim-treeview-entry')
+            this.$['nyaovim-treeview-entry']
         );
     }
 });
